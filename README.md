@@ -1,4 +1,4 @@
-# portfolio
+# portfolio (WIP)
 Learn more about me and my projects
 
 Jack Luk's portfolio site: React + TypeScript, built with Vite. Rebuilt from the Framer version
