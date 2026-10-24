@@ -1,48 +1,38 @@
+import { lazy, Suspense } from "react"
 import { Outlet, ScrollRestoration } from "react-router-dom"
-import CityBackground from "./CityBackground"
-import Cursor from "./Cursor"
-import { GlideLink } from "./GlideLink"
-import { EMAIL } from "../lib/email"
+import Nav from "./Nav"
+import { useTilt } from "../lib/useTilt"
 
-const SECTIONS = [
-    ["About", "about"],
-    ["Projects", "projects"],
-    ["Skills", "skills"],
-    ["Experience", "experience"],
-    ["Contact", "contact"],
-]
-
-const IMG = "https://framerusercontent.com/images/"
+// Agentation (click anything on the page to leave a note for Claude) - local preview only, never
+// loaded on the live site
+const Agentation = import.meta.env.DEV ? lazy(() => import("agentation").then((m) => ({ default: m.Agentation }))) : null
 
 export default function Layout() {
+    useTilt()
     return (
         <>
-            <CityBackground />
-            <Cursor />
             <div id="main">
+                <Nav />
                 <div className="shell">
-                    <nav className="nav section" aria-label="Main">
-                        <GlideLink to="/" className="nav-brand label">
-                            Jack Luk
-                        </GlideLink>
-                        <div className="nav-links">
-                            {SECTIONS.map(([label, id]) => (
-                                <GlideLink key={id} to={`/#${id}`} className="label text-link nav-link">
-                                    {label}
-                                </GlideLink>
-                            ))}
-                        </div>
-                    </nav>
                     <Outlet />
+                    <footer className="section footer">
+                        <p className="label">© {new Date().getFullYear()} Jack Luk</p>
+                        <p className="label">
+                            Banner photo by{" "}
+                            <a className="text-link" href="https://unsplash.com/photos/front-view-of-a-yellow-sports-car-with-headlights-on-L1mMvxrPsiY" target="_blank" rel="noopener noreferrer">
+                                KC Shum
+                            </a>{" "}
+                            on Unsplash
+                        </p>
+                    </footer>
                 </div>
             </div>
-            <a className="float-btn float-left bar" href={`mailto:${EMAIL}`} aria-label="Email Jack">
-                <img className="icon-img" src={IMG + "GfclqFH5PhDsjhej0wmdxI4OovM.svg"} alt="" width={24} height={17} />
-            </a>
-            <GlideLink to="/" className="float-btn float-right bar" aria-label="Home">
-                <img className="icon-img invert" src={IMG + "uP4X1jCMHBJbzt0ZvARTFYevfOw.svg"} alt="" width={24} height={24} />
-            </GlideLink>
             <ScrollRestoration />
+            {Agentation && (
+                <Suspense fallback={null}>
+                    <Agentation appName="Jack Luk portfolio" />
+                </Suspense>
+            )}
         </>
     )
 }

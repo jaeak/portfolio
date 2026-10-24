@@ -101,6 +101,8 @@ export default function RichContent({ html }: { html: string }) {
         root.querySelectorAll("img").forEach((img) => {
             img.loading = "lazy"
             img.decoding = "async"
+            // keep the shape when the picture shrinks to fit (padding included, as on Framer)
+            if (img.width && img.height) img.style.aspectRatio = `${img.getAttribute("width")} / ${img.getAttribute("height")}`
             if (DIAGRAMS.some((id) => img.src.includes(id))) img.classList.add("diagram-glass")
         })
         root.querySelectorAll('a[target="_blank"]').forEach((a) => a.setAttribute("rel", "noopener noreferrer"))

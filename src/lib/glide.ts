@@ -45,7 +45,6 @@ export async function glide(go: () => void | Promise<void>, back: boolean) {
     const dir = back ? 1 : -1
     const touch = window.matchMedia("(pointer: coarse)").matches
     try {
-        if (touch) window.__jlMoving = true
         // nothing may stick out sideways while the page is off to the side. iPhone Safari ignores
         // this on <html> and zooms out to fit, so <body> is clipped too
         html.style.overflowX = "clip"
@@ -72,7 +71,6 @@ export async function glide(go: () => void | Promise<void>, back: boolean) {
         el.style.willChange = ""
         html.style.overflowX = ""
         document.body.style.overflowX = ""
-        window.__jlMoving = false
         running = false
     }
 }

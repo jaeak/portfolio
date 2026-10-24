@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import { Activity, Clapperboard, Kanban, Megaphone } from "lucide-react"
 import { CppIcon, DockerIcon, GitHubIcon } from "../components/Icons"
-import type { Photo } from "../components/PhotoStack"
+import type { Photo } from "../components/Gallery"
 import experience from "./experience.json"
 
 const IMG = "https://framerusercontent.com/images/"
@@ -85,8 +85,6 @@ export const ALBUMS: Album[] = [
             p("6jCaEpAOc2nsNpFjp6FAie0mRjk.webp", "Ink drawing of a girl on a rooftop in a sketchbook"),
             p("pE57X2dHeIBXEbxopVp0AR9SM.webp", "Bold ink crosshatch drawing of a face"),
             p("47OZAK54Z7svvqB50BW6SRGYV8.webp", "Digital sketch of a character with a black scarf"),
-            p("1nwfjCHk5w0dsDka6wUTsmk4seo.webp", "Two hand-drawn Pokémon energy cards"),
-            p("DJfgLBFmk7krBhmvUGqx56o8PKE.png", "Painting at an easel as a little kid"),
         ],
     },
     {
@@ -98,6 +96,26 @@ export const ALBUMS: Album[] = [
             p("8Ep5CzCV6itZN8CQ2knubHG4a8.webp", "Driving with a basketball during a game"),
             p("MrXJ7F8jEATeMSyZDyDy637I.webp", "Holding a trophy on a basketball court"),
             p("WUCDs8N0x7T7xGJdI3SDQ3ddpM.webp", "Standing with a teammate in matching ultimate jerseys"),
+            { src: "/photos/life/ultimate-bcss-2024.webp", alt: "Ultimate frisbee game at the 2024 BCSS Ultimate Championships in Kamloops" },
+        ],
+    },
+    {
+        title: "Working on cars",
+        text: "Getting my hands dirty under the hood with friends.",
+        flip: false,
+        photos: [
+            { src: "/photos/life/cars-engine-bay.webp", alt: "Engine bay of a blue sports car with the hood open" },
+            { src: "/photos/life/cars-garage.webp", alt: "Working under a car in the garage with friends" },
+            { src: "/photos/life/cars-sti-light.webp", alt: "STI logo projected onto the ground by a door light" },
+        ],
+    },
+    {
+        title: "Events",
+        text: "Conferences, workshops and community events.",
+        flip: true,
+        photos: [
+            { src: "/photos/life/event-group-photo.webp", alt: "Group photo at a formal event" },
+            { src: "/photos/life/event-presentation.webp", alt: "Audience at a presentation on cashflow basics" },
         ],
     },
 ]

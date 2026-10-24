@@ -10,19 +10,23 @@ type Props = {
     className?: string
     children: ReactNode
     "aria-label"?: string
+    "aria-current"?: "location"
+    // runs just before the page changes or scrolls (e.g. to close the phone menu)
+    onBeforeNavigate?: () => void
 }
 
 const plainClick = (e: MouseEvent) => e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey
 
 // An internal link that slides to its page. A link to a #section on the page you're already on
 // just scrolls there.
-export function GlideLink({ to, back, className, children, ...rest }: Props) {
+export function GlideLink({ to, back, className, children, onBeforeNavigate, ...rest }: Props) {
     const navigate = useNavigate()
     const location = useLocation()
     const href = useHref(to)
     const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
         if (!plainClick(e)) return
         e.preventDefault()
+        onBeforeNavigate?.()
         const [path, hash] = to.split("#")
         if ((path || "/") === location.pathname) {
             if (hash) document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" })
@@ -56,7 +60,7 @@ export function BackButton() {
         }, true)
     }
     return (
-        <button type="button" className="back-btn bar" onClick={onClick}>
+        <button type="button" className="back-btn" onClick={onClick}>
             <ArrowLeft size={16} strokeWidth={2} aria-hidden="true" />
             Back
         </button>

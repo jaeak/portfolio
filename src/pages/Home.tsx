@@ -1,17 +1,87 @@
-import { FileText, Mail } from "lucide-react"
+import { useEffect, useRef } from "react"
+import { ArrowDown, ArrowRight, FileText, Mail } from "lucide-react"
 import { GlideLink } from "../components/GlideLink"
+import Gallery, { Collage, thumb } from "../components/Gallery"
 import { GitHubIcon, LinkedInIcon } from "../components/Icons"
 import MiniTerminal from "../components/MiniTerminal"
-import SpecPlates from "../components/SpecPlates"
+import ProjectCard from "../components/ProjectCard"
+import SectionHead from "../components/SectionHead"
+import Tags from "../components/Tags"
 import Ticker from "../components/Ticker"
 import TypeIn from "../components/TypeIn"
 import { CURRENT, GITHUB, LINKEDIN, MORE_EXPERIENCE, OTHER_SKILLS, RESUME, TECH_SKILLS, TOOLKIT, type Skill } from "../data/site"
+import { ABOUT_PHOTO, ABOUT_PHOTO_IS_FILLER, CURRENT_PHOTOS, EXPERIENCE_PHOTOS } from "../data/photos"
 import projects from "../data/projects.json"
 import { copyEmail, EMAIL } from "../lib/email"
 import { useReveal } from "../lib/useReveal"
-import { useWheelScroll } from "../lib/useWheelScroll"
 
 const IMG = "https://framerusercontent.com/images/"
+
+function Hero() {
+    const media = useRef<HTMLDivElement>(null)
+
+    // the photo drifts down slower than the page and eases in a touch, like driving toward it
+    useEffect(() => {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+        let frame = 0
+        const update = () => {
+            frame = 0
+            const el = media.current
+            const y = window.scrollY
+            if (!el || y > window.innerHeight * 1.2) return
+            el.style.transform = `translate3d(0, ${(y * 0.35).toFixed(1)}px, 0) scale(${(1 + (y / window.innerHeight) * 0.06).toFixed(4)})`
+        }
+        const onScroll = () => {
+            if (!frame) frame = requestAnimationFrame(update)
+        }
+        window.addEventListener("scroll", onScroll, { passive: true })
+        return () => {
+            cancelAnimationFrame(frame)
+            window.removeEventListener("scroll", onScroll)
+        }
+    }, [])
+
+    return (
+        <section className="hero" aria-label="Introduction">
+            <div className="hero-media" ref={media}>
+                <picture>
+                    <source media="(max-width: 809.98px)" srcSet="/images/hero-r34-small.jpg" />
+                    <img src="/images/hero-r34.jpg" alt="A yellow Nissan Skyline R34 head-on in the dark with its headlights on" />
+                </picture>
+            </div>
+            <div className="hero-shade" aria-hidden="true" />
+            <div className="hero-inner">
+                <TypeIn text="Hi, I’m Jack" />
+                <p className="hero-copy">
+                    <strong>Systems Engineering</strong> @ Simon Fraser University
+                    <br />
+                    Embedded systems and firmware
+                </p>
+                <div className="hero-actions">
+                    <GlideLink to="/#projects" className="btn solid">
+                        View projects
+                    </GlideLink>
+                    <a className="btn" href={RESUME} target="_blank" rel="noopener noreferrer">
+                        <FileText size={16} strokeWidth={2} aria-hidden="true" />
+                        Resume
+                    </a>
+                    <a className="btn icon" href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                        <GitHubIcon size={18} color="currentColor" />
+                    </a>
+                    <a className="btn icon" href={LINKEDIN} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <LinkedInIcon size={18} color="currentColor" />
+                    </a>
+                    <button type="button" className="btn icon" onClick={copyEmail} title="Copy email address" aria-label={`Copy email address (${EMAIL})`}>
+                        <Mail size={18} strokeWidth={2} aria-hidden="true" />
+                    </button>
+                </div>
+            </div>
+            <GlideLink to="/#about" className="scroll-cue" aria-label="Scroll to About">
+                <ArrowDown size={16} strokeWidth={2} aria-hidden="true" />
+            </GlideLink>
+        </section>
+    )
+}
 
 function SkillList({ skills }: { skills: Skill[] }) {
     return (
@@ -30,181 +100,162 @@ function SkillList({ skills }: { skills: Skill[] }) {
 }
 
 export default function Home() {
-    const carousel = useWheelScroll<HTMLDivElement>()
     useReveal()
+    const currentText = CURRENT.text.charAt(0).toUpperCase() + CURRENT.text.slice(1)
     return (
         <>
-            {/* ---------- intro ---------- */}
-            <header className="section hero">
-                <TypeIn text="Hi, I’m Jack" />
-                <p className="body readable hero-copy">
-                    <strong>Systems Engineering</strong> @ Simon Fraser University
-                    <br />
-                    <span className="accent-soft">Embedded systems and firmware</span>
-                </p>
-                <div className="socials">
-                    <a className="icon-btn bar" href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                        <GitHubIcon color="#fff" />
-                    </a>
-                    <a className="icon-btn bar" href={LINKEDIN} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <LinkedInIcon color="#fff" />
-                    </a>
-                    <button type="button" className="icon-btn bar" onClick={copyEmail} title="Copy email address" aria-label={`Copy email address (${EMAIL})`}>
-                        <Mail className="icon-img" size={22} strokeWidth={2} aria-hidden="true" />
-                    </button>
-                    <a className="icon-btn bar resume" href={RESUME} target="_blank" rel="noopener noreferrer">
-                        <FileText className="icon-img" size={20} strokeWidth={2} aria-hidden="true" />
-                        Resume
-                    </a>
-                </div>
-            </header>
+            <Hero />
 
             {/* ---------- about ---------- */}
-            <section id="about" className="section about reveal">
-                <p className="label accent">01 / ABOUT</p>
-                <h2 className="title">A little about me</h2>
+            <section id="about" className="section block reveal">
+                <SectionHead num="01" name="About" title="A little about me" />
                 <div className="about-grid">
-                    <div className="glass card about-card">
+                    <div className="about-text">
                         <p className="about-lead">Turning ideas into working systems</p>
-                        <MiniTerminal />
-                    </div>
-                    <div className="glass card beyond-card">
-                        <div className="beyond-text">
-                            <h3 className="card-heading">Beyond the screen</h3>
-                            <p className="body">Outside of work I enjoy art, the outdoors, making videos, and fun side projects with AI.</p>
-                            <GlideLink to="/beyond" className="pill bar">
-                                See more
-                            </GlideLink>
+                        <div className="goal">
+                            <p className="eyebrow">My goal</p>
+                            <h3 className="card-heading">Build things that matter</h3>
+                            <p className="body">Focused on embedded systems and firmware: reliable, practical tech that solves real problems for people.</p>
                         </div>
-                        <img className="drift" src={IMG + "9Z2OsOti9ZRSYN5GLGKifq1h2m0.svg"} alt="Animated car drifting through an S-curve" width={128} height={120} />
+                        <MiniTerminal />
+                        <GlideLink to="/beyond" className="btn see-more" aria-label="See more: Beyond the screen">
+                            See more <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
+                        </GlideLink>
                     </div>
+                    <figure className="card about-photo">
+                        <img src={thumb(ABOUT_PHOTO.src, 1200)} alt={ABOUT_PHOTO.alt} loading="lazy" />
+                        {ABOUT_PHOTO_IS_FILLER && import.meta.env.DEV && (
+                            <figcaption className="reminder">Reminder: swap in a photo of you working on a project (src/data/photos.ts)</figcaption>
+                        )}
+                    </figure>
                 </div>
-                <div className="glass card goal-card">
-                    <div className="goal-text">
-                        <p className="label accent">MY GOAL</p>
-                        <h3 className="card-heading">Build things that matter</h3>
-                        <p className="body">Focused on embedded systems and firmware: reliable, practical tech that solves real problems for people.</p>
-                    </div>
+
+                <div className="toolkit">
+                    <p className="eyebrow">Tools I work with</p>
                     <Ticker items={TOOLKIT} label="Tools: C++, SolidWorks, Linux, Python, Quartus, Docker, Excel, VHDL, Git, GitHub" />
                 </div>
             </section>
 
             {/* ---------- projects ---------- */}
-            <section id="projects" className="section projects reveal">
-                <p className="label accent">02 / PROJECTS</p>
-                <div className="projects-header">
-                    <h2 className="title">My Projects</h2>
-                    <GlideLink to="/projects" className="pill bar">
-                        View all
-                    </GlideLink>
-                </div>
-                <div className="glass current">
-                    <div className="current-title">
-                        <span className="live-dot" aria-hidden="true" />
-                        <h3 className="card-heading">Currently Working On</h3>
+            <section id="projects" className="section block reveal">
+                <SectionHead
+                    num="02"
+                    name="Projects"
+                    title="My Projects"
+                    action={
+                        <GlideLink to="/projects" className="btn small">
+                            View all
+                        </GlideLink>
+                    }
+                />
+                <article className={"card current" + (CURRENT_PHOTOS.length || import.meta.env.DEV ? " has-media" : "")}>
+                    <div className="current-body">
+                        <p className="current-tag">
+                            <span className="live-dot" aria-hidden="true" />
+                            Currently working on
+                        </p>
+                        <h3 className="card-heading">{CURRENT.title}</h3>
+                        <p className="body">{currentText}</p>
+                        <Tags text={CURRENT.specs} />
                     </div>
-                    <p className="body">
-                        <strong>{CURRENT.title}:</strong> {CURRENT.text}
-                    </p>
-                    <SpecPlates text={CURRENT.specs} />
-                </div>
-                <div className="carousel" ref={carousel}>
-                    {projects.map((p) => (
-                        <article className="slide" key={p.slug}>
-                            {p.cover && <img className="slide-cover" src={p.cover + "?scale-down-to=1024"} alt="" loading="lazy" decoding="async" />}
-                            <div className="slide-text">
-                                <SpecPlates text={p.specs} />
-                                <h3 className="slide-title">{p.title}</h3>
-                                <p className="body">{p.summary}</p>
-                                <GlideLink to={`/projects/${p.slug}`} className="pill bar" aria-label={`Read more about ${p.title}`}>
-                                    Read more
-                                </GlideLink>
-                            </div>
-                        </article>
+                    <div className="current-media">
+                        <Gallery photos={CURRENT_PHOTOS.slice(0, 1)} slots={1} label={CURRENT.title} hint="Rear monitor build photo: public/photos, then src/data/photos.ts" />
+                    </div>
+                </article>
+                <div className="project-grid">
+                    {projects.map((p, i) => (
+                        <ProjectCard key={p.slug} p={p} feature={i === 0} />
                     ))}
                 </div>
-                <img className="scroll-hint" src={IMG + "uVS3Z9XhmYeZw5l7p1hwLE6rXMg.svg"} alt="" width={96} height={16} />
             </section>
 
             {/* ---------- skills ---------- */}
-            <section id="skills" className="section skills-section reveal">
-                <p className="label accent">03 / SKILLS</p>
-                <h2 className="title">Skills &amp; tools</h2>
-                <p className="label">Programming, hardware, and content tools I work with.</p>
-                <h3 className="skills-heading">Technical skills</h3>
-                <SkillList skills={TECH_SKILLS} />
-                <h3 className="skills-heading">Other skills</h3>
-                <SkillList skills={OTHER_SKILLS} />
+            <section id="skills" className="section block reveal">
+                <SectionHead num="03" name="Skills" title="Skills & tools" />
+                <p className="body">Programming, hardware, and content tools I work with.</p>
+                <div className="skill-groups">
+                    <div>
+                        <h3 className="group-heading">Technical skills</h3>
+                        <SkillList skills={TECH_SKILLS} />
+                    </div>
+                    <div>
+                        <h3 className="group-heading">Other skills</h3>
+                        <SkillList skills={OTHER_SKILLS} />
+                    </div>
+                </div>
             </section>
 
             {/* ---------- experience ---------- */}
-            <section id="experience" className="section experience reveal">
-                <p className="label accent">04 / EXPERIENCE</p>
-                <h2 className="title">Experience &amp; Community</h2>
-                <div className="glass card racerbot">
-                    <div className="exp-text">
+            <section id="experience" className="section block reveal">
+                <SectionHead num="04" name="Experience" title="Experience & Community" />
+                <article className="card exp exp-row">
+                    <div className="exp-body">
                         <div className="exp-title">
-                            <img src={IMG + "2m9PbduL2JXZ2QjZkhmtLX3Dw4A.png"} alt="SFU Racerbot logo" width={59} height={53} />
-                            <h3 className="card-heading">Tech Team Member</h3>
+                            <img src={IMG + "2m9PbduL2JXZ2QjZkhmtLX3Dw4A.png"} alt="SFU Racerbot logo" width={48} height={48} />
+                            <div>
+                                <h3 className="card-heading">Tech Team Member</h3>
+                                <p className="label">SFU Racerbot · Simon Fraser University</p>
+                            </div>
                         </div>
-                        <p className="label accent">SFU Racerbot · Simon Fraser University</p>
                         <p className="body">
                             The tech team sets up and maintains the onboard computing for an <strong>autonomous race car</strong> (<strong>Ubuntu, NVIDIA Jetson</strong> and{" "}
                             <strong>JetPack</strong>, remote access), keeps its physical components running, and helps design and test hardware improvements.
                         </p>
                     </div>
-                    <img className="exp-photo racerbot-photo" src={IMG + "ytAAVsVqBwJX3tAaKAJDackevBI.webp?scale-down-to=1024"} alt="The SFU Racerbot autonomous race car" loading="lazy" />
-                </div>
-                <div className="exp-pair">
-                    <div className="glass card scouts">
-                        <div className="exp-text">
-                            <div className="exp-title">
-                                <img src={IMG + "tVXSKVVZ0FZgKCPV2M5IuE1COcU.png"} alt="33rd Richmond Scouts logo" width={59} height={53} />
+                    <Collage photos={EXPERIENCE_PHOTOS.racerbot} label="SFU Racerbot photos" hint="Racerbot photo: public/photos/experience, then src/data/photos.ts" />
+                </article>
+                <article className="card exp exp-row flip">
+                    <div className="exp-body">
+                        <div className="exp-title">
+                            <img src={IMG + "tVXSKVVZ0FZgKCPV2M5IuE1COcU.png"} alt="33rd Richmond Scouts logo" width={48} height={48} />
+                            <div>
                                 <h3 className="card-heading">Youth Leader</h3>
+                                <p className="label">33rd Richmond Scouts · Richmond, BC</p>
                             </div>
-                            <p className="label accent">33rd Richmond Scouts · Richmond, BC</p>
-                            <p className="body">Coordinate weekly youth programs and lead large-scale fairs and camps.</p>
-                            <p className="label">Awards: Medal for Good Service · DEA · 5 Years of Service</p>
                         </div>
-                        <img className="exp-photo" src={IMG + "9mEOli5XXpy66ZbS0H13DfdiFgY.jpg?scale-down-to=1024"} alt="Scouts event on a forest trail" loading="lazy" />
+                        <p className="body">Coordinate weekly youth programs and lead large-scale fairs and camps.</p>
+                        <p className="label">Awards: Medal for Good Service · DEA · 5 Years of Service</p>
                     </div>
-                    {MORE_EXPERIENCE.map((e) => (
-                        <div className="glass card exp-entry" key={e.slug}>
-                            <div className="exp-text">
-                                <div className="exp-title">
-                                    <h3 className="card-heading">{e.role}</h3>
-                                </div>
-                                <p className="label accent">{e.org}</p>
-                                <p className="body">{e.description}</p>
+                    <Collage photos={EXPERIENCE_PHOTOS.scouts} label="Scouts photos" hint="Scouts photo: public/photos/experience, then src/data/photos.ts" />
+                </article>
+                {MORE_EXPERIENCE.map((e) => (
+                    <article className="card exp exp-compact" key={e.slug}>
+                        {e.logo && (
+                            <div className="exp-logo">
+                                <img src={e.logo} alt="" loading="lazy" />
                             </div>
-                            {e.logo && (
-                                <div className="exp-logo">
-                                    <img src={e.logo} alt="" width={166} height={125} loading="lazy" />
+                        )}
+                        <div className="exp-body">
+                            <div className="exp-title">
+                                <div>
+                                    <h3 className="card-heading">{e.role}</h3>
+                                    <p className="label">{e.org}</p>
                                 </div>
-                            )}
+                            </div>
+                            <p className="body">{e.description}</p>
                         </div>
-                    ))}
-                </div>
+                    </article>
+                ))}
             </section>
 
             {/* ---------- contact ---------- */}
-            <section id="contact" className="section contact reveal">
-                <p className="label accent">05 / CONTACT</p>
-                <h2 className="title">Let’s keep in touch.</h2>
-                <p className="body">Have an idea, an opportunity, or just want to say hello? Reach out by email or connect with me on LinkedIn.</p>
-                <p className="label contact-links">
-                    <a className="text-link" href={`mailto:${EMAIL}`}>
+            <section id="contact" className="section block contact reveal">
+                <SectionHead num="05" name="Contact" title="Let’s keep in touch." />
+                <p className="body contact-copy">Have an idea, an opportunity, or just want to say hello? Reach out by email or connect with me on LinkedIn.</p>
+                <div className="contact-actions">
+                    <button type="button" className="btn solid" onClick={copyEmail} title="Copy email address">
+                        <Mail size={16} strokeWidth={2} aria-hidden="true" />
                         {EMAIL}
-                    </a>
-                    {" · "}
-                    <a className="text-link" href={GITHUB} target="_blank" rel="noopener noreferrer">
-                        GitHub
-                    </a>
-                    {" · "}
-                    <a className="text-link" href={LINKEDIN} target="_blank" rel="noopener noreferrer">
+                    </button>
+                    <a className="btn" href={LINKEDIN} target="_blank" rel="noopener noreferrer">
+                        <LinkedInIcon size={16} color="currentColor" />
                         LinkedIn
                     </a>
-                </p>
+                    <a className="btn" href={GITHUB} target="_blank" rel="noopener noreferrer">
+                        <GitHubIcon size={16} color="currentColor" />
+                        GitHub
+                    </a>
+                </div>
             </section>
         </>
     )
