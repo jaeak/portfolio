@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta name=viewport content="width=device-width,initial-scale=1"><script type="importmap">{"imports":{"react":"https://esm.sh/react@18.3.1","react/jsx-runtime":"https://esm.sh/react@18.3.1/jsx-runtime","react-dom":"https://esm.sh/react-dom@18.3.1","react-dom/client":"https://esm.sh/react-dom@18.3.1/client","framer":"/framer-stub.js"}}</script>
+<style>body{margin:0;color:#fff;font:18px Inter,sans-serif;background:#07080c}#main{min-height:100vh;padding:60px}a{color:#ffb060;display:block;margin:14px 0}.card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:30px;margin:20px 0;height:300px}</style></head><body>
+<div id=main></div><div id=r></div>
+<script>
+const pages={"/push.html":'<h1>HOME</h1><a href="./projects/animu">Read more</a><a href="./beyond">See more</a><div class=card>About</div><div class=card>Projects</div>',"/beyond":'<h1>BEYOND</h1><a href="./push.html#about">← Back to home</a><div class=card>Hikes</div>',"/projects/animu":'<h1>ANIMU</h1><a href="../push.html">Back</a><div class=card>Project body</div>'};
+function render(){document.getElementById('main').innerHTML=pages[location.pathname]||'<h1>404 '+location.pathname+'</h1>'}
+const routes={home:{path:"/push.html"},beyond:{path:"/beyond"},proj:{path:"/projects/:slug"}};
+window.__fakeRouter={routes,navigate(id,hash,vars){let p=routes[id].path;for(const k in (vars||{}))p=p.replace(':'+k,vars[k]);history.pushState({},'',p+(hash?'#'+hash:''));setTimeout(()=>{render();scrollTo(0,0)},40)}};
+document.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();const u=new URL(a.href);history.pushState({},'',u.pathname+u.hash);setTimeout(render,30)});
+render();
+</script>
+<script type=module>import React from "react";import {createRoot} from "react-dom/client";import PW from "/pagewipe.js";import Bg from "/city-bg.js";createRoot(document.getElementById("r")).render(React.createElement(React.Fragment,null,React.createElement(PW,{}),React.createElement(Bg,{})));</script></body></html>

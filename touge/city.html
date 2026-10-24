@@ -1,0 +1,12 @@
+<!doctype html><html><head><meta name=viewport content="width=device-width,initial-scale=1"><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@700&family=Inter:wght@400;600;700&display=swap"><style>
+body{margin:0;font-family:Inter,sans-serif;color:#EEF2FF;background:#07080c}
+#bg{position:fixed;inset:0;background:#07080c url(/city.jpg) 55% 70%/cover no-repeat;z-index:-4}
+#tint{position:fixed;inset:0;background:linear-gradient(rgba(4,5,10,.55),rgba(4,5,10,.15) 45%,rgba(4,5,10,.25));z-index:-3}
+#dk{position:fixed;inset:0;background:#000;opacity:0;z-index:-2}#lc{position:fixed;inset:0;width:100%;height:100%;z-index:-1}
+.w{max-width:960px;margin:0 auto;padding:80px 20px}
+h1{font:700 70px/1.05 "Pixelify Sans";margin:0 0 16px;text-shadow:0 0 10px rgba(0,0,0,.55),0 0 22px rgba(0,0,0,.35)}
+.card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:20px;padding:28px;margin:24px 0;min-height:200px}
+h2{font:800 40px/1 Inter;margin:0 0 10px}</style></head><body><div id=bg></div><div id=tint></div><div id=dk></div><canvas id=lc></canvas><div class=w><h1>Hello, I&#39;m Jack</h1><p>Systems Engineering student at Simon Fraser University.</p>
+<div class=card><h2>About</h2><p>Turning ideas into working systems.</p></div><div class=card><h2>Projects</h2></div><div class=card><h2>Experience</h2></div><div class=card><h2>Skills</h2></div><div class=card><h2>Contact</h2></div><div class=card></div></div>
+<script src="/lights.js"></script><script>startLights(document.getElementById("lc"));
+const dk=document.getElementById("dk");let D=0;(function f(){requestAnimationFrame(f);const max=Math.max(1,document.documentElement.scrollHeight-innerHeight);const pp=Math.min(1,scrollY/max/.87);const tg=1-(1-pp)*(1-pp);D+=(tg-D)*.08;dk.style.opacity=(D*.5).toFixed(3)})();</script></body></html>

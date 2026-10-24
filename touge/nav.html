@@ -1,0 +1,11 @@
+<!doctype html><html><head><script type="importmap">{"imports":{"react":"https://esm.sh/react@18.3.1","react/jsx-runtime":"https://esm.sh/react@18.3.1/jsx-runtime","react-dom":"https://esm.sh/react-dom@18.3.1","react-dom/client":"https://esm.sh/react-dom@18.3.1/client","framer":"/framer-stub.js"}}</script>
+<style>body{background:#222;color:#fff;font:16px sans-serif}a{color:#fc0;display:block;margin:10px}</style></head><body>
+<div id=main></div><div id=r></div>
+<script>
+// fake Framer router: document-level link handler, swaps #main and pushes history
+const pages={"/nav.html":'<h1>HOME</h1><a href="/beyond">Beyond</a><a href="/projects/x">Project</a>',"/beyond":'<h1>BEYOND</h1><a href="./nav.html#about">← Back to home</a>',"/projects/x":'<h1>PROJECT</h1><a href="/nav.html">Back</a>'};
+function render(){document.getElementById('main').innerHTML=pages[location.pathname]||'<h1>404 '+location.pathname+'</h1>'}
+document.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();const u=new URL(a.href);history.pushState({},'',u.pathname+u.hash);setTimeout(render,30)});
+render();window.log=[];
+</script>
+<script type=module>import React from "react";import {createRoot} from "react-dom/client";import PW from "/pagewipe.js";createRoot(document.getElementById("r")).render(React.createElement(PW,{}));</script></body></html>

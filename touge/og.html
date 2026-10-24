@@ -1,0 +1,26 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@700&family=Inter:wght@500;600;700&display=swap">
+<style>body{margin:0;background:#000}canvas{width:1200px;height:630px;display:block}</style></head><body><canvas id=c width=3600 height=1890></canvas><script>
+(async()=>{
+await document.fonts.load('700 100px "Pixelify Sans"');await document.fonts.load('600 40px Inter');await document.fonts.load('500 40px Inter');await document.fonts.load('700 40px Inter');
+const c=document.getElementById('c'),x=c.getContext('2d'),W=3600,H=1890,S=3;
+const img=new Image();img.src='/city-full.jpg';await img.decode();
+// photo, cover, nudged so the towers and the curving road both show
+const k=Math.max(W/img.width,H/img.height),iw=img.width*k,ih=img.height*k;
+x.drawImage(img,(W-iw)*0.62,(H-ih)*0.62,iw,ih);
+// darken, heavier on the left behind the text
+let g=x.createLinearGradient(0,0,W,0);g.addColorStop(0,'rgba(4,5,10,.86)');g.addColorStop(.42,'rgba(4,5,10,.62)');g.addColorStop(.75,'rgba(4,5,10,.28)');g.addColorStop(1,'rgba(4,5,10,.2)');x.fillStyle=g;x.fillRect(0,0,W,H);
+g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'rgba(4,5,10,.35)');g.addColorStop(.5,'rgba(4,5,10,0)');g.addColorStop(1,'rgba(4,5,10,.35)');x.fillStyle=g;x.fillRect(0,0,W,H);
+const text=(t,px,py,font,color,blur,glow)=>{x.font=font;x.fillStyle=color;x.shadowColor=glow;x.shadowBlur=blur;x.shadowOffsetX=0;x.shadowOffsetY=0;x.fillText(t,px,py);x.shadowBlur=0;};
+x.textBaseline='alphabetic';
+// name, pixel font with the same soft dark glow as the site
+x.font='700 '+(150*S)+'px "Pixelify Sans"';x.fillStyle='#fff';
+x.shadowColor='rgba(0,0,0,.65)';x.shadowBlur=30*S;x.fillText('Jack Luk',80*S,290*S);x.shadowBlur=60*S;x.shadowColor='rgba(0,0,0,.35)';x.fillText('Jack Luk',80*S,290*S);x.shadowBlur=0;
+// amber accent bar
+x.fillStyle='#FFA040';x.fillRect(84*S,322*S,96*S,6*S);
+text('Systems Engineering @ Simon Fraser University',84*S,390*S,'600 '+(34*S)+'px Inter','#F2F4FA',14*S,'rgba(0,0,0,.85)');
+text('Embedded systems  ·  Firmware',84*S,442*S,'500 '+(28*S)+'px Inter','rgb(255,205,150)',14*S,'rgba(0,0,0,.85)');
+text('jackluk.framer.website',84*S,548*S,'600 '+(24*S)+'px Inter','#FFA040',12*S,'rgba(0,0,0,.85)');
+window.done=true;
+})();
+window.save=async()=>{const r=await fetch('/',{method:'POST',body:document.getElementById('c').toDataURL('image/png')});return r.text()};
+</script></body></html>
