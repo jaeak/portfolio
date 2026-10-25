@@ -1,14 +1,12 @@
 import { lazy, Suspense } from "react"
 import { Outlet, ScrollRestoration } from "react-router-dom"
 import Nav from "./Nav"
-import { useTilt } from "../lib/useTilt"
 
 // Agentation (click anything on the page to leave a note for Claude) - local preview only, never
 // loaded on the live site
 const Agentation = import.meta.env.DEV ? lazy(() => import("agentation").then((m) => ({ default: m.Agentation }))) : null
 
 export default function Layout() {
-    useTilt()
     return (
         <>
             <div id="main">

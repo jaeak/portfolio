@@ -74,7 +74,7 @@ export const ALBUMS: Album[] = [
             p("WReH4m5oYeOrHhda9D1jAlYpfIg.webp", "Frozen, snow-covered lake under a dusky sky with the moon out", "Garibaldi Lake in winter"),
             p("U3pjqetjKufnuPTs3KqlHCL3pw.webp", "Pointing at glacier-topped mountains across a calm lake on a sunny day", "Garibaldi Lake"),
             p("Tiy7nGgVMcUBmZ7ENC0YuhcbGs.webp", "Arched mountain hut beside a turquoise lake below grey cliffs", "Wedgemount Lake"),
-            p("WsdZq58gGcB05amYbZh7VcZuBpI.webp", "Water buffalo grazing on a green hillside under big clouds", "Taiwan"),
+            p("WsdZq58gGcB05amYbZh7VcZuBpI.webp", "Water buffalo grazing on a green hillside under big clouds", "Taiwan", "50% 76%"),
         ],
     },
     {

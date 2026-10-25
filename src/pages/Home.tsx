@@ -118,8 +118,8 @@ export default function Home() {
                             <p className="body">Focused on embedded systems and firmware: reliable, practical tech that solves real problems for people.</p>
                         </div>
                         <MiniTerminal />
-                        <GlideLink to="/beyond" className="btn see-more" aria-label="Dive into my life: Beyond the screen">
-                            Dive into my life! <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
+                        <GlideLink to="/beyond" className="btn see-more" aria-label="My Life: Beyond the screen">
+                            My Life <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
                         </GlideLink>
                     </div>
                     <figure className="card about-photo">
@@ -140,12 +140,12 @@ export default function Home() {
                     name="Projects"
                     title="My Projects"
                     action={
-                        <GlideLink to="/projects" className="btn small">
+                        <GlideLink to="/projects" className="btn">
                             View all
                         </GlideLink>
                     }
                 />
-                <article className={"card current" + (CURRENT_PHOTOS.length || import.meta.env.DEV ? " has-media" : "")}>
+                <article className={"card current" + (CURRENT_PHOTOS.length ? " has-media" : "")}>
                     <div className="current-body">
                         <p className="current-tag">
                             <span className="live-dot" aria-hidden="true" />
@@ -155,9 +155,11 @@ export default function Home() {
                         <p className="body">{currentText}</p>
                         <Tags text={CURRENT.specs} />
                     </div>
-                    <div className="current-media">
-                        <Gallery photos={CURRENT_PHOTOS.slice(0, 1)} slots={1} label={CURRENT.title} hint="Rear monitor build photo: public/photos, then src/data/photos.ts" />
-                    </div>
+                    {CURRENT_PHOTOS.length > 0 && (
+                        <div className="current-media">
+                            <Gallery photos={CURRENT_PHOTOS.slice(0, 1)} label={CURRENT.title} />
+                        </div>
+                    )}
                 </article>
                 <div className="project-grid three">
                     {projects.slice(0, 3).map((p) => (

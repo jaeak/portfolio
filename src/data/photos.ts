@@ -39,7 +39,11 @@ export const EXPERIENCE_PHOTOS: Record<string, Photo[]> = {
         { src: "/photos/experience/racerbot-workstation.webp", alt: "Racerbot workstation with three monitors showing code and a driving visualization" },
     ],
     "salvation-army-outreach": [{ src: "/photos/experience/salvation-global-news.webp", alt: "Serving a Christmas meal at The Salvation Army, as featured on Global News" }],
-    scouts: [{ src: IMG + "9mEOli5XXpy66ZbS0H13DfdiFgY.jpg", alt: "Scouts event on a forest trail" }],
+    scouts: [
+        { src: IMG + "9mEOli5XXpy66ZbS0H13DfdiFgY.jpg", alt: "Scouts event on a forest trail" },
+        { src: "/photos/experience/scouts-catapults.webp", alt: "Running a pioneering activity with young Scouts and lashed-pole catapults at camp" },
+        { src: "/photos/experience/scouts-campfire.webp", alt: "Leading a campfire circle with a group of young Scouts at dusk" },
+    ],
 }
 
 // extra life photos, added to the end of each album on the Beyond page
