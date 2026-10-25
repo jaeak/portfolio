@@ -14,15 +14,22 @@ export const PROJECT_PHOTOS: Record<string, Photo[]> = {
     "automatic-blueberry-sorter": [],
     animu: [],
     "sakura-assistant": [],
+    split: [
+        { src: "https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/005/676/423/datas/original.png", alt: "Split's group screen: top restaurant matches for everyone's budget and diet, ready to vote on" },
+        { src: "https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/005/676/421/datas/original.png", alt: "Split's order planner: headcount, total budget, tax and tip" },
+        { src: "https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/005/676/413/datas/original.png", alt: "Split's fair split: receipt items assigned to each person, with the tip" },
+        { src: "https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/005/676/418/datas/original.png", alt: "Split's ledger: who owes who and past meals" },
+    ],
 }
+
+// projects whose photos are phone screenshots (shown tall, under "Screenshots")
+export const SCREENSHOT_PROJECTS = new Set(["split"])
 
 // photos for "Currently working on" (the rear monitor build)
 export const CURRENT_PHOTOS: Photo[] = []
 
-// About section photo. TODO: replace the filler with a photo of you working on a project, then
-// set ABOUT_PHOTO_IS_FILLER to false so the reminder disappears.
-export const ABOUT_PHOTO: Photo = { src: IMG + "lCTBMP30Y4t9DnozpxnzvGnbzws.webp", alt: "The FPGA alarm clock running on a DE10-Standard board" }
-export const ABOUT_PHOTO_IS_FILLER = true
+// About section photo
+export const ABOUT_PHOTO: Photo = { src: "/photos/about/working-on-split.webp", alt: "Testing Split's receipt scanner on a laptop, with the test suite passing in the terminal" }
 
 // three photos per role (big one first); the first photo of each is already on the site
 export const EXPERIENCE_PHOTOS: Record<string, Photo[]> = {
@@ -31,6 +38,7 @@ export const EXPERIENCE_PHOTOS: Record<string, Photo[]> = {
         { src: "/photos/experience/racerbot-electronics.webp", alt: "Top view of the Racerbot car's onboard computer and electronics" },
         { src: "/photos/experience/racerbot-workstation.webp", alt: "Racerbot workstation with three monitors showing code and a driving visualization" },
     ],
+    "salvation-army-outreach": [{ src: "/photos/experience/salvation-global-news.webp", alt: "Serving a Christmas meal at The Salvation Army, as featured on Global News" }],
     scouts: [{ src: IMG + "9mEOli5XXpy66ZbS0H13DfdiFgY.jpg", alt: "Scouts event on a forest trail" }],
 }
 
@@ -39,6 +47,6 @@ export const MORE_LIFE_PHOTOS: Record<string, Photo[]> = {
     Hikes: [],
     "Recent Art": [],
     Sports: [],
-    "Working on cars": [],
+    Cars: [],
     Events: [],
 }

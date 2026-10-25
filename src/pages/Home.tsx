@@ -10,7 +10,7 @@ import Tags from "../components/Tags"
 import Ticker from "../components/Ticker"
 import TypeIn from "../components/TypeIn"
 import { CURRENT, GITHUB, LINKEDIN, MORE_EXPERIENCE, OTHER_SKILLS, RESUME, TECH_SKILLS, TOOLKIT, type Skill } from "../data/site"
-import { ABOUT_PHOTO, ABOUT_PHOTO_IS_FILLER, CURRENT_PHOTOS, EXPERIENCE_PHOTOS } from "../data/photos"
+import { ABOUT_PHOTO, CURRENT_PHOTOS, EXPERIENCE_PHOTOS } from "../data/photos"
 import projects from "../data/projects.json"
 import { copyEmail, EMAIL } from "../lib/email"
 import { useReveal } from "../lib/useReveal"
@@ -46,7 +46,7 @@ function Hero() {
             <div className="hero-media" ref={media}>
                 <picture>
                     <source media="(max-width: 809.98px)" srcSet="/images/hero-r34-small.jpg" />
-                    <img src="/images/hero-r34.jpg" alt="A yellow Nissan Skyline R34 head-on in the dark with its headlights on" />
+                    <img src="/images/hero-r34-wide.jpg" alt="A yellow Nissan Skyline R34 head-on in the dark with its headlights on" />
                 </picture>
             </div>
             <div className="hero-shade" aria-hidden="true" />
@@ -118,15 +118,12 @@ export default function Home() {
                             <p className="body">Focused on embedded systems and firmware: reliable, practical tech that solves real problems for people.</p>
                         </div>
                         <MiniTerminal />
-                        <GlideLink to="/beyond" className="btn see-more" aria-label="See more: Beyond the screen">
-                            See more <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
+                        <GlideLink to="/beyond" className="btn see-more" aria-label="Dive into my life: Beyond the screen">
+                            Dive into my life! <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
                         </GlideLink>
                     </div>
                     <figure className="card about-photo">
                         <img src={thumb(ABOUT_PHOTO.src, 1200)} alt={ABOUT_PHOTO.alt} loading="lazy" />
-                        {ABOUT_PHOTO_IS_FILLER && import.meta.env.DEV && (
-                            <figcaption className="reminder">Reminder: swap in a photo of you working on a project (src/data/photos.ts)</figcaption>
-                        )}
                     </figure>
                 </div>
 
@@ -162,9 +159,9 @@ export default function Home() {
                         <Gallery photos={CURRENT_PHOTOS.slice(0, 1)} slots={1} label={CURRENT.title} hint="Rear monitor build photo: public/photos, then src/data/photos.ts" />
                     </div>
                 </article>
-                <div className="project-grid">
-                    {projects.map((p, i) => (
-                        <ProjectCard key={p.slug} p={p} feature={i === 0} />
+                <div className="project-grid three">
+                    {projects.slice(0, 3).map((p) => (
+                        <ProjectCard key={p.slug} p={p} />
                     ))}
                 </div>
             </section>
@@ -198,44 +195,53 @@ export default function Home() {
                             </div>
                         </div>
                         <p className="body">
-                            The tech team sets up and maintains the onboard computing for an <strong>autonomous race car</strong> (<strong>Ubuntu, NVIDIA Jetson</strong> and{" "}
-                            <strong>JetPack</strong>, remote access), keeps its physical components running, and helps design and test hardware improvements.
+                            Part of the tech team behind an <strong>autonomous race car</strong>.
                         </p>
+                        <ul className="body exp-points">
+                            <li>Set up and maintain the onboard computer: Ubuntu, NVIDIA Jetson, JetPack</li>
+                            <li>Keep remote access and the physical components running</li>
+                            <li>Help design and test hardware improvements</li>
+                        </ul>
                     </div>
                     <Collage photos={EXPERIENCE_PHOTOS.racerbot} label="SFU Racerbot photos" hint="Racerbot photo: public/photos/experience, then src/data/photos.ts" />
                 </article>
-                <article className="card exp exp-row flip">
-                    <div className="exp-body">
-                        <div className="exp-title">
-                            <img src={IMG + "tVXSKVVZ0FZgKCPV2M5IuE1COcU.png"} alt="33rd Richmond Scouts logo" width={48} height={48} />
-                            <div>
-                                <h3 className="card-heading">Youth Leader</h3>
-                                <p className="label">33rd Richmond Scouts · Richmond, BC</p>
-                            </div>
-                        </div>
-                        <p className="body">Coordinate weekly youth programs and lead large-scale fairs and camps.</p>
-                        <p className="label">Awards: Medal for Good Service · DEA · 5 Years of Service</p>
-                    </div>
-                    <Collage photos={EXPERIENCE_PHOTOS.scouts} label="Scouts photos" hint="Scouts photo: public/photos/experience, then src/data/photos.ts" />
-                </article>
-                {MORE_EXPERIENCE.map((e) => (
-                    <article className="card exp exp-compact" key={e.slug}>
-                        {e.logo && (
-                            <div className="exp-logo">
-                                <img src={e.logo} alt="" loading="lazy" />
-                            </div>
-                        )}
+                <div className="exp-pair">
+                    <article className="card exp exp-row flip">
                         <div className="exp-body">
                             <div className="exp-title">
+                                <img src={IMG + "tVXSKVVZ0FZgKCPV2M5IuE1COcU.png"} alt="33rd Richmond Scouts logo" width={48} height={48} />
                                 <div>
-                                    <h3 className="card-heading">{e.role}</h3>
-                                    <p className="label">{e.org}</p>
+                                    <h3 className="card-heading">Youth Leader</h3>
+                                    <p className="label">33rd Richmond Scouts · Richmond, BC</p>
                                 </div>
                             </div>
-                            <p className="body">{e.description}</p>
+                            <p className="body">Coordinate weekly youth programs and lead large-scale fairs and camps.</p>
+                            <p className="label">Awards: Medal for Good Service · DEA · 5 Years of Service</p>
                         </div>
+                        <Collage photos={EXPERIENCE_PHOTOS.scouts} label="Scouts photos" hint="Scouts photo: public/photos/experience, then src/data/photos.ts" />
                     </article>
-                ))}
+                    <div className="exp-stack">
+                        {MORE_EXPERIENCE.map((e) => (
+                            <article className="card exp exp-compact" key={e.slug}>
+                                <div className="exp-body">
+                                    <div className="exp-title">
+                                        {e.logo && <img className="logo-fit" src={e.logo} alt={`${e.org.split(" · ")[0]} logo`} width={48} height={48} loading="lazy" />}
+                                        <div>
+                                            <h3 className="card-heading">{e.role}</h3>
+                                            <p className="label">{e.org}</p>
+                                        </div>
+                                    </div>
+                                    <p className="body">{e.description}</p>
+                                    {EXPERIENCE_PHOTOS[e.slug] && (
+                                        <div className="exp-shot">
+                                            <Gallery photos={EXPERIENCE_PHOTOS[e.slug]} label={`${e.role} photos`} />
+                                        </div>
+                                    )}
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </div>
             </section>
 
             {/* ---------- contact ---------- */}

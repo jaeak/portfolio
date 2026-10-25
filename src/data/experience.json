@@ -19,5 +19,12 @@
     "org": "STEM Power to Learn · Remote",
     "description": "Planned and delivered weekly math tutoring sessions on Zoom to help elementary students.",
     "logo": "https://framerusercontent.com/images/4NY6qraYIftHDeaEgTkZb5WcGI.png"
+  },
+  {
+    "slug": "salvation-army-outreach",
+    "role": "Community Outreach",
+    "org": "The Salvation Army in Canada",
+    "description": "Support holiday meal service operations for individuals experiencing homelessness through The Salvation Army’s annual Christmas outreach.",
+    "logo": "/photos/experience/salvation-army.webp"
   }
 ]

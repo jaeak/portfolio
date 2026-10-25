@@ -27,7 +27,8 @@ function Spread({ title, photos, flip }: { title: string; photos: Photo[]; flip:
         const i = n++
         return (
             <button key={p.src} type="button" className={"spread-item" + (lead ? " lead" : "")} onClick={() => setOpen(i)} aria-label={`View photo: ${p.alt}`}>
-                <img src={thumb(p.src, lead ? 1400 : 800)} alt={p.alt} loading="lazy" decoding="async" />
+                <img src={thumb(p.src, lead ? 1400 : 800)} alt={p.alt} style={{ objectPosition: p.position }} loading="lazy" decoding="async" />
+                {p.caption && <span className="spread-caption">{p.caption}</span>}
             </button>
         )
     }

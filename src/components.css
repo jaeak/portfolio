@@ -24,7 +24,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 45%;
+    /* the photo is widened to the left, so anchoring right keeps the car beside the text */
+    object-position: right center;
     animation: hero-in 1.8s var(--ease) both;
 }
 
@@ -176,19 +177,6 @@
 
 .about-photo {
     min-height: 420px;
-}
-
-/* note to self on the filler photo (local preview only) */
-.reminder {
-    position: absolute;
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    background: rgba(255, 214, 10, 0.92);
-    color: #1a1400;
-    font: 600 12px/1.4 var(--sans);
 }
 
 .about-photo img {
@@ -449,6 +437,11 @@
     gap: 18px;
 }
 
+/* home page: three cards in a row */
+.project-grid.three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .project-card {
     display: flex;
     flex-direction: column;
@@ -496,28 +489,6 @@
 .pc-more {
     margin-top: auto;
     padding-top: 6px;
-}
-
-/* the first card on the home page runs full width, photo beside the text */
-.project-card.feature {
-    grid-column: 1 / -1;
-    flex-direction: row;
-}
-
-.project-card.feature .pc-media {
-    flex: 1;
-    aspect-ratio: auto;
-    min-height: 250px;
-}
-
-.project-card.feature .pc-body {
-    flex: 1.1;
-    justify-content: center;
-    padding: 28px 30px;
-}
-
-.project-card.feature .card-heading {
-    font-size: 28px;
 }
 
 /* tilt toward the cursor (mouse only, see useTilt) with a soft light following it */
@@ -657,6 +628,19 @@
     margin-top: 2px;
 }
 
+/* short bullet list in place of one long sentence */
+.exp-points {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding-left: 18px;
+}
+
+.exp-points li::marker {
+    color: var(--dim);
+}
+
 .exp-body strong {
     color: var(--text);
     font-weight: 600;
@@ -667,7 +651,7 @@
     grid-template-columns: 1.6fr 1fr;
     grid-template-rows: repeat(2, minmax(0, 1fr));
     gap: 6px;
-    min-height: 320px;
+    min-height: 240px;
     padding: 6px;
 }
 
@@ -695,23 +679,122 @@
     border-radius: 12px;
 }
 
+/* three photos: the first runs full width so the whole shot shows, the other two sit below */
+.collage-3 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    min-height: 0;
+}
+
+.collage-3 .gallery-item,
+.collage-3 .photo-slot {
+    aspect-ratio: 2 / 1;
+    height: auto;
+}
+
+.collage-3 > :first-child {
+    grid-row: auto;
+    grid-column: 1 / -1;
+    aspect-ratio: 2.15 / 1;
+}
+
+/* trims the top of the wide photo, keeping the whole car */
+.collage-3 > :first-child img {
+    object-position: 50% 75%;
+}
+
 .exp-compact {
     display: flex;
     align-items: stretch;
 }
 
-.exp-compact .exp-logo {
-    flex: none;
-    width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f4f6f9;
+/* Youth Leader and STEM Tutor side by side, each stacked: photos (or logo) on top, text below */
+.exp-pair {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 18px;
 }
 
-.exp-compact .exp-logo img {
-    width: 120px;
-    height: 90px;
+.exp-pair .exp-row {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+}
+
+.exp-pair .exp-row.flip .exp-body {
+    order: 0;
+}
+
+.exp-pair .collage {
+    min-height: 0;
+}
+
+.exp-pair .collage-3 .gallery-item,
+.exp-pair .collage-3 .photo-slot {
+    aspect-ratio: 2 / 1;
+}
+
+/* Youth Leader takes its height from the cards beside it (height 0 + min-height 100% of the
+   row), and its main photo crops from the bottom to fill whatever is left */
+.exp-pair > .exp-row {
+    display: flex;
+    flex-direction: column;
+    height: 0;
+    min-height: 100%;
+}
+
+.exp-pair > .exp-row .collage {
+    flex: 1;
+    grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.exp-pair > .exp-row .collage > :first-child {
+    height: 100%;
+    aspect-ratio: auto;
+}
+
+.exp-pair .collage > :first-child img {
+    object-position: 50% 30%;
+}
+
+.exp-pair .exp-compact {
+    flex-direction: column;
+}
+
+/* the two small cards stack at their natural height; this column sets the row's height */
+.exp-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* one photo under the text, shown uncropped */
+.exp-shot {
+    padding-top: 6px;
+}
+
+.exp-shot .gallery-grid {
+    grid-template-columns: 1fr;
+}
+
+.exp-shot .gallery-grid .gallery-item {
+    aspect-ratio: auto;
+}
+
+.exp-shot .gallery-item img {
+    display: block;
+    height: auto;
+}
+
+.exp-pair .exp-body {
+    justify-content: flex-start;
+    padding: 24px 28px 28px;
+}
+
+/* logos that aren't square tiles: fitted on white like the others */
+.exp-title img.logo-fit {
+    padding: 5px;
+    background: #fff;
     object-fit: contain;
 }
 
@@ -824,17 +907,6 @@
 
 .project-summary {
     font-size: 18px;
-}
-
-.project-cover {
-    width: 100%;
-    aspect-ratio: 21 / 9;
-}
-
-.project-cover img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 .spec-table {
@@ -1044,6 +1116,19 @@
 
 .gallery-grid .gallery-item {
     aspect-ratio: 4 / 3;
+}
+
+/* phone screenshots: four tall tiles, cropped from the top */
+.screens .gallery-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.screens .gallery-grid .gallery-item {
+    aspect-ratio: 9 / 16;
+}
+
+.screens .gallery-item img {
+    object-position: top;
 }
 
 .gallery-item img {
@@ -1305,19 +1390,27 @@
     filter: none;
 }
 
-/* screens wider than the photo: show the whole car, fitted to the banner's height on the right,
-   with its left edge fading into the (matching) black background so the banner still looks full */
-@media (min-aspect-ratio: 135/100) and (min-width: 810px) {
-    .hero-media {
-        background: #050608;
-    }
+/* caption fades in over the bottom of the photo on hover (or keyboard focus) */
+.spread-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 28px 14px 11px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.78));
+    color: #fff;
+    font: 500 13px/1.4 var(--sans);
+    text-align: left;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+    pointer-events: none;
+}
 
-    .hero-media img {
-        object-fit: contain;
-        object-position: right center;
-        -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%);
-        mask-image: linear-gradient(90deg, transparent, #000 22%);
-    }
+.spread-item:hover .spread-caption,
+.spread-item:focus-visible .spread-caption {
+    opacity: 1;
+    transform: none;
 }
 
 /* ---------- tablet ---------- */
@@ -1352,6 +1445,10 @@
 /* ---------- phone ---------- */
 
 @media (max-width: 809.98px) {
+    .screens .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .hero {
         align-items: flex-end;
     }
@@ -1415,6 +1512,8 @@
     }
 
     .project-grid,
+    .project-grid.three,
+    .exp-pair,
     .project-nav {
         grid-template-columns: 1fr;
     }
@@ -1428,6 +1527,21 @@
         order: 0;
     }
 
+    /* stacked on phones, so Youth Leader sizes to its own content again */
+    .exp-pair > .exp-row {
+        height: auto;
+        min-height: 0;
+    }
+
+    .exp-pair > .exp-row .collage {
+        height: auto;
+    }
+
+    .exp-pair > .exp-row .collage > :first-child {
+        height: auto;
+        aspect-ratio: 1.95 / 1;
+    }
+
     .exp-body {
         padding: 24px;
     }
@@ -1438,40 +1552,17 @@
         padding: 0 6px 6px;
     }
 
+    .collage-3 {
+        height: auto;
+    }
+
     .exp-compact {
         flex-direction: column;
-    }
-
-    .exp-compact .exp-logo {
-        width: 100%;
-        height: 150px;
-    }
-
-    .project-card.feature {
-        flex-direction: column;
-    }
-
-    .project-card.feature .pc-media {
-        flex: none;
-        aspect-ratio: 2.3 / 1;
-        min-height: 0;
-    }
-
-    .project-card.feature .pc-body {
-        padding: 18px 22px 20px;
-    }
-
-    .project-card.feature .card-heading {
-        font-size: 22px;
     }
 
     .skills,
     .skill-groups > div:last-child .skills {
         grid-template-columns: 1fr;
-    }
-
-    .project-cover {
-        aspect-ratio: 16 / 10;
     }
 
     .spec-table > div {

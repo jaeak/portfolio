@@ -3,12 +3,12 @@ import { GlideLink } from "./GlideLink"
 import Tags from "./Tags"
 import { thumb } from "./Gallery"
 
-export type Project = { slug: string; title: string; summary: string; type: string; specs: string; cover: string | null }
+export type Project = { slug: string; title: string; summary: string; type: string; specs: string; cover: string | null; coverPosition?: string }
 
-export default function ProjectCard({ p, feature = false }: { p: Project; feature?: boolean }) {
+export default function ProjectCard({ p }: { p: Project }) {
     return (
-        <GlideLink to={`/projects/${p.slug}`} className={"card project-card tilt" + (feature ? " feature" : "")} aria-label={p.title}>
-            <span className="pc-media">{p.cover && <img src={thumb(p.cover, 1200)} alt="" loading="lazy" decoding="async" />}</span>
+        <GlideLink to={`/projects/${p.slug}`} className="card project-card tilt" aria-label={p.title}>
+            <span className="pc-media">{p.cover && <img src={thumb(p.cover, 1200)} style={{ objectPosition: p.coverPosition }} alt="" loading="lazy" decoding="async" />}</span>
             <span className="pc-body">
                 <span className="eyebrow">{p.type}</span>
                 <span className="card-heading">{p.title}</span>

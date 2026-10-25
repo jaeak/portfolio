@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { Camera } from "lucide-react"
 
-export type Photo = { src: string; alt: string }
+// caption: shown on hover on the Beyond page; position: object-position for a tight crop
+export type Photo = { src: string; alt: string; caption?: string; position?: string }
 
 // smaller copies from the image CDN for the grid; the viewer loads the full photo
 export const thumb = (src: string, size = 900) =>

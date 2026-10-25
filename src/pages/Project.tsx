@@ -2,10 +2,10 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { BackButton, GlideLink } from "../components/GlideLink"
-import Gallery, { thumb } from "../components/Gallery"
+import Gallery from "../components/Gallery"
 import RichContent from "../components/RichContent"
 import projects from "../data/projects.json"
-import { PROJECT_PHOTOS } from "../data/photos"
+import { PROJECT_PHOTOS, SCREENSHOT_PROJECTS } from "../data/photos"
 import NotFound from "./NotFound"
 
 // "LABEL: value · LABEL: value" -> rows for the spec table
@@ -35,6 +35,8 @@ export default function Project() {
     const prev = projects[i - 1]
     const next = projects[i + 1]
     const photos = PROJECT_PHOTOS[p.slug] ?? []
+    const screens = SCREENSHOT_PROJECTS.has(p.slug)
+    const heading = screens ? "Screenshots" : "Build photos"
     return (
         <article className="section page project">
             <BackButton />
@@ -43,11 +45,6 @@ export default function Project() {
                 <h1 className="page-title">{p.title}</h1>
                 <p className="body project-summary">{p.summary}</p>
             </header>
-            {p.cover && (
-                <figure className="card project-cover">
-                    <img src={thumb(p.cover, 1600)} alt="" />
-                </figure>
-            )}
             <dl className="spec-table">
                 {specRows(p.specs).map(([k, v]) => (
                     <div key={k + v}>
@@ -57,10 +54,12 @@ export default function Project() {
                 ))}
             </dl>
             <RichContent html={p.content} />
-            <section className="project-gallery" aria-label="Build photos">
-                {(photos.length > 0 || import.meta.env.DEV) && <h2 className="group-heading">Build photos</h2>}
-                <Gallery photos={photos} slots={3} label={`${p.title} photos`} hint={`Build photos: public/photos/projects, then "${p.slug}" in src/data/photos.ts`} />
-            </section>
+            {photos.length > 0 && (
+                <section className={"project-gallery" + (screens ? " screens" : "")} aria-label={heading}>
+                    <h2 className="group-heading">{heading}</h2>
+                    <Gallery photos={photos} label={`${p.title} photos`} />
+                </section>
+            )}
             <nav className="project-nav" aria-label="More projects">
                 {prev ? (
                     <GlideLink to={`/projects/${prev.slug}`} back className="card project-nav-link">
