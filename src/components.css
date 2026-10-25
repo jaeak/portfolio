@@ -94,6 +94,11 @@
     margin-top: 6px;
 }
 
+/* line break before the icon buttons, phones only */
+.hero-break {
+    display: none;
+}
+
 .scroll-cue {
     position: absolute;
     left: 50%;
@@ -1437,8 +1442,25 @@
         align-items: flex-end;
     }
 
+    /* phones: the whole car sits in the upper part of the screen instead of a tight crop,
+       fading into the dark background at its top and bottom edges */
     .hero-media img {
-        object-position: 50% 40%;
+        position: absolute;
+        top: 12%;
+        left: 50%;
+        width: min(150%, 760px);
+        max-width: none;
+        height: auto;
+        translate: -50% 0;
+        -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 72%, transparent);
+        mask-image: linear-gradient(transparent, #000 18%, #000 72%, transparent);
+    }
+
+    /* icons start their own row */
+    .hero-break {
+        display: block;
+        flex-basis: 100%;
+        height: 0;
     }
 
     .hero-shade {

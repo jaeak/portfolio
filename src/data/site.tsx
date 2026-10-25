@@ -8,7 +8,7 @@ const IMG = "https://framerusercontent.com/images/"
 const logo = (file: string, alt: string, w = 28, h = 28) => <img src={IMG + file} alt={alt} width={w} height={h} loading="lazy" />
 const stroke = { color: "#fff", strokeWidth: 2, "aria-hidden": true } as const
 
-export const RESUME = "https://framerusercontent.com/assets/7F9F7okN2GvTCzkXNmc2GqfXBs.pdf"
+export const RESUME = "/Jack_Luk_Resume.pdf"
 export const GITHUB = "https://github.com/jaeak"
 export const LINKEDIN = "https://www.linkedin.com/in/jack-luk/"
 

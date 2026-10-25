@@ -65,6 +65,7 @@ function Hero() {
                         <FileText size={16} strokeWidth={2} aria-hidden="true" />
                         Resume
                     </a>
+                    <span className="hero-break" aria-hidden="true" />
                     <a className="btn icon" href={GITHUB} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                         <GitHubIcon size={18} color="currentColor" />
                     </a>
