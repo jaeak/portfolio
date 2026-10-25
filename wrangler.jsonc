@@ -1,0 +1,10 @@
+// Cloudflare deploy config: serve the built site in dist/ as static files. Unknown paths
+// (e.g. /beyond, /projects/split) fall back to index.html so the app's router handles them.
+{
+  "name": "portfolio",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}
