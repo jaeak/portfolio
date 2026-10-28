@@ -9,19 +9,23 @@ const Agentation = import.meta.env.DEV ? lazy(() => import("agentation").then((m
 export default function Layout() {
     return (
         <>
+            <a
+                className="skip-link"
+                href="#content"
+                onClick={(e) => {
+                    // focus the content directly; a hash change would go through the router
+                    e.preventDefault()
+                    document.getElementById("content")?.focus()
+                }}
+            >
+                Skip to content
+            </a>
             <div id="main">
                 <Nav />
-                <div className="shell">
+                <div className="shell" id="content" tabIndex={-1}>
                     <Outlet />
                     <footer className="section footer">
                         <p className="label">© {new Date().getFullYear()} Jack Luk</p>
-                        <p className="label">
-                            Banner photo by{" "}
-                            <a className="text-link" href="https://unsplash.com/photos/front-view-of-a-yellow-sports-car-with-headlights-on-L1mMvxrPsiY" target="_blank" rel="noopener noreferrer">
-                                KC Shum
-                            </a>{" "}
-                            on Unsplash
-                        </p>
                     </footer>
                 </div>
             </div>

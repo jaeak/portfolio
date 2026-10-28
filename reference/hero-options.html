@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hero banner options</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Pixelify+Sans:wght@700&display=swap" />
+<style>
+    :root { --bg: #08090c; --text: #eef1f5; --muted: rgba(225, 231, 240, 0.7); }
+    body { margin: 0; padding: 32px 24px 60px; background: var(--bg); color: var(--text); font: 400 15px/1.5 Inter, system-ui, sans-serif; }
+    h1 { margin: 0 0 6px; font: 700 28px/1.2 "Pixelify Sans", monospace; }
+    p.note { margin: 0 0 28px; color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(520px, 1fr)); gap: 22px; }
+    figure { margin: 0; }
+    .banner { position: relative; aspect-ratio: 16 / 8.5; border-radius: 12px; overflow: hidden; background: #000; }
+    .banner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .banner::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,9,12,0.9), rgba(8,9,12,0.55) 40%, rgba(8,9,12,0.1) 75%), linear-gradient(transparent 60%, rgba(8,9,12,0.8)); }
+    .copy { position: absolute; left: 6%; top: 50%; translate: 0 -50%; z-index: 1; }
+    .copy b { display: block; font: 700 clamp(22px, 3.4vw, 40px)/1.05 "Pixelify Sans", monospace; }
+    .copy span { display: block; margin-top: 8px; font-size: 12px; color: var(--muted); }
+    figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
+    figcaption strong { color: var(--text); font-weight: 600; margin-right: 6px; }
+    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<h1>Hero banner options</h1>
+<p class="note">Real Unsplash photos (free with credit). Each is shown dimmed with your name on the left, the way the hero would look. Tell me the letter.</p>
+<div class="grid" id="grid"></div>
+<script>
+const U = "https://images.unsplash.com/";
+const OPTIONS = [
+    ["A", "photo-1764983253036-edd0f55af679", "Self-driving car with roof sensors on a city street"],
+    ["B", "photo-1772171386187-bc14e6cd7804", "Dashboard showing an autonomous-driving visualization"],
+    ["C", "photo-1772171386057-63e3fef73b77", "Autonomous-driving interface, second angle"],
+    ["D", "photo-1521410843026-323be9ead002", "Driver's view on a misty highway at night"],
+    ["E", "photo-1786683028355-8eee51174e45", "Waymo test car with roof sensors"],
+    ["F", "photo-1784877714560-8330d386962b", "Autonomous car parked at dawn in fog"],
+    ["G", "photo-1774031528911-608cd7a0cc70", "Autonomous vehicle driving on a city street"],
+    ["H", "photo-1731337528114-8fb9676bc52e", "Car dashboard glowing at night"],
+    ["I", "photo-1584310881889-93bc9c4577ff", "Driving through the city at night"],
+    ["J", "photo-1719645580984-7bdec515c7ca", "Night drive from the driver's seat"],
+    ["K", "photo-1633121945200-05b2a267caee", "Long-exposure highway at night"],
+    ["L", "photo-1553260202-d1f2ce03298b", "Tesla screen with navigation on"],
+];
+document.getElementById("grid").innerHTML = OPTIONS.map(([k, id, label]) => `
+    <figure>
+        <div class="banner">
+            <img src="${U + id}?auto=format&fit=crop&w=1400&q=70" alt="${label}" loading="lazy" />
+            <div class="copy"><b>Hi, I'm Jack</b><span>Systems Engineering @ SFU · Embedded Systems &amp; Edge AI</span></div>
+        </div>
+        <figcaption><strong>${k}</strong>${label}</figcaption>
+    </figure>`).join("");
+</script>
+</body>
+</html>

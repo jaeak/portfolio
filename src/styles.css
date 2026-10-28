@@ -8,7 +8,7 @@
     --border-strong: rgba(255, 255, 255, 0.18);
     --text: #eef1f5;
     --muted: rgba(225, 231, 240, 0.68);
-    --dim: rgba(225, 231, 240, 0.45);
+    --dim: rgba(225, 231, 240, 0.62);
     --accent: #dfe5ee;
     --live: #46d483;
     --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
@@ -153,6 +153,30 @@ button {
     overflow: clip;
 }
 
+/* skip link: hidden until a keyboard user tabs to it */
+.skip-link {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #0b0c10;
+    font: 600 14px/1 var(--sans);
+    transform: translateY(-160%);
+    transition: transform 0.2s var(--ease);
+}
+
+.skip-link:focus-visible {
+    transform: none;
+}
+
+/* the skip link moves focus here; the whole page doesn't need a ring */
+#content:focus {
+    outline: none;
+}
+
 /* ---------- buttons ---------- */
 
 .btn {
@@ -160,7 +184,7 @@ button {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    height: 42px;
+    height: 44px;
     padding: 0 20px;
     border-radius: 10px;
     border: 1px solid var(--border-strong);
@@ -196,7 +220,7 @@ button {
 }
 
 .btn.icon {
-    width: 42px;
+    width: 44px;
     padding: 0;
 }
 

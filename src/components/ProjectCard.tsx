@@ -7,11 +7,11 @@ export type Project = { slug: string; title: string; summary: string; type: stri
 
 export default function ProjectCard({ p }: { p: Project }) {
     return (
-        <GlideLink to={`/projects/${p.slug}`} className="card project-card" aria-label={p.title}>
+        <GlideLink to={`/projects/${p.slug}`} className="card project-card">
             <span className="pc-media">{p.cover && <img src={thumb(p.cover, 1200)} style={{ objectPosition: p.coverPosition }} alt="" loading="lazy" decoding="async" />}</span>
             <span className="pc-body">
-                <span className="eyebrow">{p.type}</span>
-                <span className="card-heading">{p.title}</span>
+                <h3 className="card-heading">{p.title}</h3>
+                <span className="label">{p.type}</span>
                 <span className="body pc-summary">{p.summary}</span>
                 <Tags text={p.specs} />
                 <span className="arrow-link pc-more">

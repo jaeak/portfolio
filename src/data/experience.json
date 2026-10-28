@@ -1,10 +1,23 @@
 [
   {
+    "slug": "sfu-racerbot",
+    "role": "Tech Team Member",
+    "org": "SFU Racerbot · Simon Fraser University",
+    "description": "Part of the tech team behind an autonomous race car.",
+    "points": [
+      "Set up and maintain the onboard computer: Ubuntu, NVIDIA Jetson, JetPack",
+      "Keep remote access and the physical components running",
+      "Help design and test hardware improvements"
+    ],
+    "logo": "https://framerusercontent.com/images/2m9PbduL2JXZ2QjZkhmtLX3Dw4A.png"
+  },
+  {
     "slug": "youth-leader-richmond-scouts",
     "role": "Youth Leader",
     "org": "33rd Richmond Scouts · Richmond, BC",
-    "description": "Coordinated weekly youth programs and led large-scale fairs and camps. Achieved multiple awards: Medal for good service, DEA, 5 years of service",
-    "logo": "https://framerusercontent.com/images/tVXSKVVZ0FZgKCPV2M5IuE1COcU.png"
+    "description": "Coordinate weekly youth programs and lead large-scale fairs and camps.",
+    "logo": "https://framerusercontent.com/images/tVXSKVVZ0FZgKCPV2M5IuE1COcU.png",
+    "awards": "Medal for Good Service · DEA · 5 Years of Service"
   },
   {
     "slug": "private-stem-tutor",

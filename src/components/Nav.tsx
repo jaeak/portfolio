@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { useLocation } from "react-router-dom"
-import { FileText, Menu, X } from "lucide-react"
+import { FileText, Mail, Menu, X } from "lucide-react"
 import { GlideLink } from "./GlideLink"
 import { GitHubIcon, LinkedInIcon } from "./Icons"
 import { GITHUB, LINKEDIN, RESUME } from "../data/site"
+import { copyEmail } from "../lib/email"
 
 const SECTIONS = [
-    ["About", "about"],
     ["Projects", "projects"],
-    ["Skills", "skills"],
+    ["About", "about"],
     ["Experience", "experience"],
+    ["Skills", "skills"],
     ["Contact", "contact"],
 ]
 
@@ -137,6 +138,9 @@ export default function Nav() {
                             <a className="btn icon" href={LINKEDIN} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                                 <LinkedInIcon color="#fff" />
                             </a>
+                            <button type="button" className="btn icon" onClick={copyEmail} title="Copy email address" aria-label="Copy email address">
+                                <Mail size={20} strokeWidth={2} aria-hidden="true" />
+                            </button>
                         </div>
                     </div>,
                     document.body

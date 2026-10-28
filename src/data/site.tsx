@@ -1,12 +1,11 @@
 import type { ReactNode } from "react"
-import { Activity, Clapperboard, Kanban, Megaphone } from "lucide-react"
-import { CppIcon, DockerIcon, GitHubIcon } from "../components/Icons"
+import { Cpu } from "lucide-react"
+import { CppIcon, GitHubIcon } from "../components/Icons"
 import type { Photo } from "../components/Gallery"
 import experience from "./experience.json"
 
 const IMG = "https://framerusercontent.com/images/"
 const logo = (file: string, alt: string, w = 28, h = 28) => <img src={IMG + file} alt={alt} width={w} height={h} loading="lazy" />
-const stroke = { color: "#fff", strokeWidth: 2, "aria-hidden": true } as const
 
 export const RESUME = "/Jack_Luk_Resume.pdf"
 export const GITHUB = "https://github.com/jaeak"
@@ -14,38 +13,27 @@ export const LINKEDIN = "https://www.linkedin.com/in/jack-luk/"
 
 export type Skill = { name: string; note: string; icon: ReactNode }
 
-export const TECH_SKILLS: Skill[] = [
-    { name: "C++", note: "Systems programming", icon: <CppIcon size={28} /> },
-    { name: "SolidWorks", note: "Mechanical CAD design", icon: logo("3UrKiDkBtJ2HIdUevT1MXskdNr0.svg", "SolidWorks logo") },
-    { name: "Linux", note: "Command line & system administration", icon: logo("q4AqU0bKH4jaWDkJkWjCJZb1x2M.png", "Linux logo", 24, 28) },
-    { name: "Python", note: "Scripting & problem solving", icon: logo("ahdsj0NFrPnSFtBAwBTnE7r7r4.webp", "Python logo", 26, 28) },
-    { name: "VHDL", note: "Digital hardware description", icon: logo("Ve40b0SuFKPtugQiPzsqWsmouRs.svg", "VHDL logo") },
-    { name: "Quartus", note: "FPGA design & synthesis", icon: logo("kdncIVVGNukbvOUa8IfrVK7c.png", "Quartus logo") },
-    { name: "Docker", note: "Containerized environments", icon: <DockerIcon size={28} /> },
-    { name: "Soldering", note: "Circuit assembly & repair", icon: logo("JYCLnwdAuu639Wq8Yp7S9QkKWd4.svg", "Soldering iron") },
-    { name: "Lab Equipment", note: "Oscilloscopes & power supplies", icon: <Activity size={28} {...stroke} /> },
-    { name: "Excel", note: "Spreadsheets, data analysis & charts", icon: logo("9yJ2CAp4QhOiT4QKKyx2Kp2sCOw.webp", "Excel logo", 27, 28) },
-    { name: "Github", note: "Sharing & collaboration", icon: <GitHubIcon size={28} color="#fff" /> },
-    { name: "Git", note: "Version control & branching", icon: logo("pLyDjoduscTUVEXqt95N6QHADHA.png", "Git logo") },
+// kept short on purpose: only the tools used in the projects on this site
+export const SKILLS: Skill[] = [
+    { name: "C++", note: "Systems programming and Arduino microcontrollers", icon: <CppIcon size={28} /> },
+    { name: "Python", note: "OpenCV, MediaPipe and scikit-learn for computer vision", icon: logo("ahdsj0NFrPnSFtBAwBTnE7r7r4.webp", "Python logo", 26, 28) },
+    { name: "VHDL", note: "Digital logic for FPGAs: state machines and counters", icon: logo("Ve40b0SuFKPtugQiPzsqWsmouRs.svg", "VHDL logo") },
+    { name: "Quartus", note: "FPGA synthesis and pin planning on the DE10-Standard", icon: logo("kdncIVVGNukbvOUa8IfrVK7c.png", "Quartus logo") },
+    { name: "Linux", note: "Command line, SSH and setup on Raspberry Pi and Jetson", icon: logo("q4AqU0bKH4jaWDkJkWjCJZb1x2M.png", "Linux logo", 24, 28) },
+    { name: "SolidWorks", note: "Mechanical CAD: parts and assemblies", icon: logo("3UrKiDkBtJ2HIdUevT1MXskdNr0.svg", "SolidWorks logo") },
+    { name: "Embedded Hardware", note: "STM32, CAN bus and servo control", icon: <Cpu size={28} color="#fff" strokeWidth={2} aria-hidden="true" /> },
+    { name: "Git & GitHub", note: "Version control and team repos for group and hackathon projects", icon: <GitHubIcon size={28} color="#fff" /> },
 ]
 
-export const OTHER_SKILLS: Skill[] = [
-    { name: "Project Management", note: "Leadership, communication & team coordination", icon: <Kanban size={28} {...stroke} /> },
-    { name: "Digital Marketing", note: "Campaigns & audience growth", icon: <Megaphone size={28} {...stroke} /> },
-    { name: "Video Production", note: "Short-form video content", icon: <Clapperboard size={28} {...stroke} /> },
-]
-
-// the slow-moving logo strip in "My goal"
+// the slow-moving logo strip in About: the same tools, larger
 export const TOOLKIT: ReactNode[] = [
     <CppIcon size={40} />,
-    logo("3UrKiDkBtJ2HIdUevT1MXskdNr0.svg", "SolidWorks", 40, 40),
-    logo("q4AqU0bKH4jaWDkJkWjCJZb1x2M.png", "Linux", 34, 40),
     logo("ahdsj0NFrPnSFtBAwBTnE7r7r4.webp", "Python", 37, 40),
-    logo("kdncIVVGNukbvOUa8IfrVK7c.png", "Quartus", 40, 40),
-    <DockerIcon size={40} />,
-    logo("9yJ2CAp4QhOiT4QKKyx2Kp2sCOw.webp", "Excel", 39, 40),
     logo("Ve40b0SuFKPtugQiPzsqWsmouRs.svg", "VHDL", 40, 40),
-    logo("pLyDjoduscTUVEXqt95N6QHADHA.png", "Git", 40, 40),
+    logo("kdncIVVGNukbvOUa8IfrVK7c.png", "Quartus", 40, 40),
+    logo("q4AqU0bKH4jaWDkJkWjCJZb1x2M.png", "Linux", 34, 40),
+    logo("3UrKiDkBtJ2HIdUevT1MXskdNr0.svg", "SolidWorks", 40, 40),
+    <Cpu size={40} color="#fff" strokeWidth={2} aria-hidden="true" />,
     <GitHubIcon size={40} color="#fff" />,
 ]
 
@@ -55,8 +43,13 @@ export const CURRENT = {
     specs: "VISION: Raspberry Pi 5 + OpenCV (Python) · ALERTS: STM32 (Embedded C) · LINK: CAN bus · TYPE: Independent",
 }
 
+export type Experience = { slug: string; role: string; org: string; description: string; logo: string; points?: string[]; awards?: string }
+
+const ALL_EXPERIENCE = experience as Experience[]
+export const EXPERIENCE = (slug: string) => ALL_EXPERIENCE.find((e) => e.slug === slug)!
+
 // the small experience cards stacked next to Scouts
-export const MORE_EXPERIENCE = experience.filter((e) => e.slug === "private-stem-tutor" || e.slug === "salvation-army-outreach")
+export const MORE_EXPERIENCE = ALL_EXPERIENCE.filter((e) => e.slug === "private-stem-tutor" || e.slug === "salvation-army-outreach")
 
 export type Album = { title: string; text: string; flip: boolean; photos: Photo[] }
 
