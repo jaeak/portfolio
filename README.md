@@ -1,8 +1,8 @@
-# portfolio
+# Portfolio
 Learn more about me and my projects: **[jackluk.com](https://jackluk.com)**
 
-Jack Luk's portfolio site: Systems Engineering @ Simon Fraser University, focused on embedded
-systems and edge AI. Hand-built in React + TypeScript with Vite.
+Systems Engineering @ Simon Fraser University, focused on embedded
+systems and edge AI. 
 
 ## Run it locally
 
