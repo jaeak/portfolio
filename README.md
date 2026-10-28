@@ -1,8 +1,8 @@
-# portfolio (WIP)
-Learn more about me and my projects
+# portfolio
+Learn more about me and my projects: **[jackluk.com](https://jackluk.com)**
 
-Jack Luk's portfolio site: React + TypeScript, built with Vite. Rebuilt from the Framer version
-(night-city car theme).
+Jack Luk's portfolio site: Systems Engineering @ Simon Fraser University, focused on embedded
+systems and edge AI. Hand-built in React + TypeScript with Vite.
 
 ## Run it locally
 
@@ -15,17 +15,21 @@ Then open http://localhost:5173.
 
 ## Where things live
 
-- `src/pages/` — the four pages: Home, Projects, Project (one per project), Beyond
-- `src/data/projects.json`, `src/data/experience.json` — project write-ups and experience entries
+- `src/pages/` — Home, Projects, Project (one page per project), Beyond (life outside of work)
+- `src/data/projects.json` — project write-ups (HTML in `content`), card tags in `specs`, page number tiles in `stats`
+- `src/data/experience.json` — experience and community entries
 - `src/data/site.tsx` — skills, toolkit logos, "Currently working on", photo albums, links
-- `src/components/CityBackground.tsx` — the 3D night-city background with light trails
-- `src/lib/glide.ts` — the sideways page slide between pages
-- `index.html` — page title, link preview tags and the startup dashboard
-- `reference/` — the Framer save points and old experiments (not part of the site)
+- `src/data/photos.ts` — which photos go with each experience and project
+- `src/components/WaveMesh.tsx` — the moving dot-wave hero (follows the cursor, or phone tilt on mobile)
+- `src/lib/glide.ts` — the sideways slide between pages
+- `public/` — photos (`public/photos/`), the resume PDF and the link preview image (`og.jpg`)
+- `index.html` — page title and link preview tags
+- `reference/` — old experiments and save points (not part of the site)
 
-To add or edit a project, change `src/data/projects.json` (the write-up is HTML in `content`).
+To add or edit a project, change `src/data/projects.json`.
 
 ## Deploy
 
-Hosted as a static site (Vercel). `vercel.json` sends every path to `index.html` so links like
-`/projects/animu` work when opened directly. `npm run build` outputs the site to `dist/`.
+Hosted on Cloudflare Workers (static assets, see `wrangler.jsonc`). Every push to `main` on
+GitHub rebuilds and deploys automatically. `npm run build` outputs the site to `dist/`, and
+`not_found_handling: single-page-application` lets links like `/projects/animu` open directly.
