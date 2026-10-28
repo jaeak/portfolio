@@ -169,8 +169,8 @@ export default function Home() {
                             <p className="body">Focused on embedded systems and edge AI: reliable, practical tech that solves real problems for people.</p>
                         </div>
                         <MiniTerminal />
-                        <GlideLink to="/beyond" className="btn see-more" aria-label="My Life: Beyond the screen">
-                            My Life <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
+                        <GlideLink to="/beyond" className="btn see-more" aria-label="Outside of work: Beyond the screen">
+                            Outside of work <ArrowRight size={15} strokeWidth={2} aria-hidden="true" />
                         </GlideLink>
                     </div>
                     <figure className="card about-photo">

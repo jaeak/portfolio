@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { BackButton, GlideLink } from "../components/GlideLink"
-import Gallery from "../components/Gallery"
+import Gallery, { thumb } from "../components/Gallery"
 import RichContent from "../components/RichContent"
 import projects from "../data/projects.json"
 import { PROJECT_PHOTOS, SCREENSHOT_PROJECTS } from "../data/photos"
@@ -39,6 +39,7 @@ export default function Project() {
     const heading = screens ? "Screenshots" : "Build photos"
     return (
         <article className="section page project">
+            {p.cover && <div className="project-banner" aria-hidden="true" style={{ backgroundImage: `url(${thumb(p.cover, 1600)})`, backgroundPosition: p.coverPosition }} />}
             <BackButton />
             <header className="page-head">
                 <p className="eyebrow">{p.category}</p>
@@ -46,7 +47,7 @@ export default function Project() {
                 <p className="body project-summary">{p.summary}</p>
             </header>
             <dl className="spec-table">
-                {specRows(p.specs).map(([k, v]) => (
+                {specRows(p.stats ?? p.specs).map(([k, v]) => (
                     <div key={k + v}>
                         <dt>{k}</dt>
                         <dd>{v}</dd>

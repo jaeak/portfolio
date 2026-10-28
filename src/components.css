@@ -927,9 +927,29 @@
 }
 
 .spec-table dd {
-    margin: 4px 0 0;
-    font: 500 15px/1.4 var(--sans);
+    margin: 6px 0 0;
+    font: 700 20px/1.25 var(--sans);
     color: var(--text);
+}
+
+.project {
+    position: relative;
+    isolation: isolate;
+}
+
+/* the cover, faded behind the title and dissolving into the page */
+.project-banner {
+    position: absolute;
+    z-index: -1;
+    top: -96px;
+    left: 50%;
+    width: 100vw;
+    height: 520px;
+    transform: translateX(-50%);
+    background: center / cover no-repeat;
+    opacity: 0.16;
+    mask-image: linear-gradient(#000 30%, transparent);
+    pointer-events: none;
 }
 
 .project-gallery {

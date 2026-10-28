@@ -5,7 +5,7 @@ import type { Photo } from "../components/Gallery"
 // to the matching list below. Until a list is full, the local preview (npm run dev) shows marked
 // "Photo spot" boxes where photos will go; the live site just leaves them out.
 
-const IMG = "https://framerusercontent.com/images/"
+const IMG = "/photos/f/"
 
 // build photos for each project page, keyed by the project's slug
 export const PROJECT_PHOTOS: Record<string, Photo[]> = {

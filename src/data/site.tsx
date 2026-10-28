@@ -4,7 +4,7 @@ import { CppIcon, GitHubIcon } from "../components/Icons"
 import type { Photo } from "../components/Gallery"
 import experience from "./experience.json"
 
-const IMG = "https://framerusercontent.com/images/"
+const IMG = "/photos/f/"
 const logo = (file: string, alt: string, w = 28, h = 28) => <img src={IMG + file} alt={alt} width={w} height={h} loading="lazy" />
 
 export const RESUME = "/Jack_Luk_Resume.pdf"
