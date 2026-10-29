@@ -1,8 +1,8 @@
 # Portfolio
 Learn more about me and my projects: **[jackluk.com](https://jackluk.com)**
 
-Systems Engineering @ Simon Fraser University, focused on embedded
-systems and edge AI. 
+Systems Engineering @ Simon Fraser University, focused on **embedded
+systems** & **Edge AI**. 
 
 ## Run it locally
 
